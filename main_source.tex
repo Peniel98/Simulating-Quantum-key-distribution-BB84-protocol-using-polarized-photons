@@ -1,0 +1,200 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{qcircuit}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{pifont}
+\usepackage{fancyhdr}
+\usepackage{amsfonts}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{xcolor,graphicx}
+\graphicspath{ {./gfx/} }
+\usepackage[top=0.6in,bottom=0.6in,right=1in,left=1in]{geometry}
+
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\pqc}{|+45\rangle}
+\newcommand{\mqc}{|-45\rangle}
+\newcommand{\bpqc}{\langle+45|}
+\newcommand{\bmqc}{\langle-45|}
+\newcommand{\kH}{|H\rangle}
+\newcommand{\kV}{|V\rangle}
+\newcommand{\bH}{\langle H|}
+\newcommand{\bV}{\langle V|}
+\newcommand{\tbl}[1]{\textcolor{blue}{#1}}
+\newcommand{\tre}[1]{\textcolor{red}{#1}}
+\newcommand{\bfs}[1]{\textbf{#1}}
+\newcommand{\rit}{\rightarrow}
+\newcommand{\sq}[1]{\sqrt{#1}}
+\newcommand{\fr}[1]{\frac{1}{#1}}
+\lhead{\tbl{\emph{TPE6-PHY4268 Simulation of quantum Key Distribution}}}
+\lfoot{\tbl{\emph{TPE6-PHY4268 Simulation of quantum Key Distribution}}}
+\rfoot{\tbl{\emph{\thepage}}}
+\cfoot{}
+\pagestyle{fancy}
+
+\frenchbsetup{StandardLists=true}
+\begin{document}
+	\begin{titlepage}
+	\begin{center}
+		\begin{minipage}{6cm}
+			\begin{center}
+				REPUBLIQUE DU CAMEROUN\\
+				\textit{Paix-Travail-Patrie}\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				UNIVERSITE DE YAOUNDE 1\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				CENTRE DE RECHERCHE ET DE FORMATION DOCTORALE EN SCIENCES TECHNOLOGIQUES\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				UNITE DE RECHERCHE ET DE FORMATION DOCTORALE PHYSIQUE ET APPLICATIONS\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				BP:812 YAOUNDE\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				Email:bertrand.tsemo@facsciences-uy1.cm
+			\end{center}
+		\end{minipage}\hfill
+		\begin{minipage}{2cm}
+			\begin{center}
+				\includegraphics[scale=0.23]{uy1.png}
+			\end{center}
+		\end{minipage}\hfill
+		\begin{minipage}{6cm}
+			\begin{center}
+				REPUBLIC Of CAMEROON\\
+				\textit{Peace-Work-Fatherland}\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				UNIVERSITY OF YAOUNDE 1\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				POSTGRADUATE SCHOOL OF SCIENCE,TECHNOLOGY AND GEOSCIENCE\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				RESEARCH AND POSTGRADUATE TRAINING UNIT FOR PHYSICS AND APPLICATIONS\\
+				$\ast\ast\ast\ast\ast\ast$\\
+				P.O. BOX:812 YAOUNDE
+				$\ast\ast\ast\ast\ast\ast$\\
+				Email:bertrand.tsemo@facsciences-uy1.cm
+			\end{center}	
+		\end{minipage}
+		\textsc{\Large }\\[1.5cm]
+		{\large \bfseries Laboratory of atomic, molecular and biophysics}\\[0.3cm]
+			% Title
+			\rule{\linewidth}{0.3mm} \\[0.4cm]
+			{ \huge \bfseries\color{blue!70!black}Simulation "Quantum key distribution(BB84 protocol) using polarized photons" \\[0.4cm] }
+			\rule{\linewidth}{0.3mm} \\[1cm]
+			\noindent
+			\textsc{\Large }\\[-0.5cm]
+			{\large \bfseries TPE6-PHY4268,Simulation of Quantum Key Distribution}\\[1.0cm]
+			\begin{minipage}{0.4\textwidth}
+				\begin{flushleft} \large
+					\emph{\color{orange!80!black}Realized by :}\\
+					\textsc{M.Tsemo} Peniel Bertrand
+				\end{flushleft}
+			\end{minipage}%
+			\begin{minipage}{0.5\textwidth}
+				\begin{flushright} \large
+					\emph{\color{orange!80!black}Under the leadership of :} \\
+					Pr.Serge Guy \textsc{Nana Engo} 
+				\end{flushright}
+			\end{minipage}\\[1cm]
+			{\large \color{orange!80!black}{Année académique}\\ \color{blue!80!black}2019/2020}
+				\end{center}
+	\end{titlepage}
+\section*{\textcolor{blue}{Introduction}}
+	Our society is more and more based on communications. Sometimes when we are communicating, we wish to share a secret message with our interlocutor or we want to be sure that nobody intercepted our message we sent. We want our message to be completely secure. There comes yet the problem of sharing a message between two partners with a complete security.In what follows, we will simulate a quantum communication protocol named Quantum Key Distribution, precily the BB84 protocol using polarized photons.
+	\\[0.2cm]
+	\setenumerate[1]{label=\fcolorbox{blue}{blue}{\arabic*}, font=\color{black}}
+		\setenumerate[2]{label=\alph*),font=\color{blue}}
+		\begin{enumerate}
+		\item  We set-uped our simulation with different situations as it follows:\\
+		
+		\hspace{-2.5cm}\begin{tabular}{cc}
+				\includegraphics[scale=0.25]{5}  & \includegraphics[scale=0.25]{6}\\
+				\tbl{(a) \emph{ Fixed same bases used and no eavesdropper }} & \tbl{(b) \emph{ Fixed different bases used and no eavesdopper}}\\
+					\includegraphics[scale=0.25]{7}  & \includegraphics[scale=0.25]{8}\\
+					\tbl{(c) \emph{Random bases used and no eavesdropper}} & \tbl{(d) \emph{Fixed same bases used with an eavesdopper}}\\
+						\includegraphics[scale=0.25]{10}  & \includegraphics[scale=0.25]{9}\\
+							\tbl{(e) \emph{Fixed different bases used with an eavesdopper }} & \tbl{(f) \emph{Random bases used with an eavesdropper}}\\
+			\end{tabular}
+	\item \begin{enumerate}[label=\alph*)] \item Generally, if Alice sends a photon state with a basis different from Bob's basis, this one will detect a photon or not due to his polarizer's orientation. Indeed, by choosing a basis different from Alice, Bob detects a photon or not with $50\%$ of probability.For example, if Alice sends a single photon with the polarisation $+45$ , this is to say she sends a photon in the state $\ket{+45}$, this photon is randomly determined in the $H/V$ basis.the state $\ket{+45}$ is in a supersposed state in the $H/V$ basis that we can write like it follows:
+	$$
+	\ket{+45}=\frac{1}{\sq{2}}(\kH + \kV)
+	$$
+So, if for example Bob orients his polarizer in the $V$ axis, this is to say he choosed the $H/V$ basis,the photon $\ket{+45}$ sent by Alice will be projected in the $\kH$ or$\kV$ state each $50\%$ of cases. Thus, Bob will detect a photon with the probability $\fr{2}$ and will not detect it with the probability $\fr{2}$. Why is it like that ?\\
+It is like that because after Bob measurement, the photon sent by Alice take one of $\kH$ and $\kV$ states. If the state took by Alice's photon is $\kH$, Bob's detector will not detect it because his polarizer is oriented along the $V$ axis. But if Alice's photon is projected in the $\kV$ state, his detector will detect it. Bob thus have the two situations with equal probabilities $\fr{2}$.
+\hspace{20mm}\begin{figure}[!h] \begin{tabular}{cc}
+	\includegraphics[scale=0.25]{11}  & \includegraphics[scale=0.25]{12}\\
+	\tbl{(a) \emph{ Bob detect the photon sent by Alice }} & \tbl{(b) \emph{ Bob don't detect the photon sent by Alice}}\\
+\end{tabular}\end{figure}
+\\[0.0cm]
+\item The table below is completed with this principle: \bfs{If Bob orients his polarizer along an axis and detect a photon, he understands that Alice sent a single-photon in one of the other basis's states, or in the state of the orientation he choosed ; But if he d'ont detect a photon, he understands that Alice sent a single-photon only in one of the other basis states }.\\
+We thus have the table:\\
+
+\begin{tabular}{|*3{>{\centering\arraybackslash}p{2cm}|p{2cm}|p{9cm}|}}
+	\arrayrulecolor{blue}
+	\hline \hline
+	 Bob's polarizer & Bob detect a photon ? & What Bob can infer about the polarization state sent by Alice without knowing her basis \\ \hline \hline
+	V 			    &  yes					& Alice sent the polarization state $\pqc$ or $\mqc$ or $\kV$  					\\\hline
+	V 			    &  no					&  Alice sent the polarization state $\pqc$ or $\mqc$ 					\\\hline
+	-45 			&  yes					&  Alice sent the polarization state  $\kV$ or $\kH$ or $\mqc$  					\\\hline
+	
+	-45 		    &  no					&  Alice sent the polarization state   $\kH$ or $\kV$					\\\hline
+	\end{tabular}
+\vspace{1cm}
+\item In the key generation pannel, a key bit is generated when Alice and Bob choose the same basis. A key bit value is determined by the bit value of the orientation of Bob's polarizer if he detects a photon, by the opposite bit value of the orientation of Bob's polarizer if he don't detect any photon.
+\end{enumerate}
+\item  \hspace{-0.5cm} \begin{tabular}{cc}
+\includegraphics[scale=0.25]{cap1}  & \includegraphics[scale=0.25]{cap2}\\
+\tbl{(a) \emph{Alice and Bob choose different bases}} & \tbl{(b) \emph{Alice and Bob choose same bases}}
+	\end{tabular}
+
+In this simulation, there is an eavesdropper Eve which by chance, chooses the same basis than Bob. In this case, we have two situations that can happen:
+\begin{description}
+ \item [Alice and Bob choose different basis:] No secret key can be generated. Indeed , to generate a key, Alice and Bob only consider their bits coming from same base used.
+	\item [Alice and Bob choose the same basis:]: As Eve chooses the same basis than Bob, no error occurs on the quantum channel.Eve intercepts the single-photon sent by Alice and resends it to Bob,  this one measures the photon and obtains the same than by Alice. Because of Eve used the same basis than Bob, Alice and Bob establish a key but all is happening like there were no eavesdropper. For this reason, \bfs{no secure key is generated!!!!}
+	\end{description}
+	\begin{enumerate}\item If Eve's polarizer in front of her detector was set to V:
+\begin{itemize}[font=\color{blue}, label=\ding{43}]
+		\item \bfs{Eve don't detect any single-photon:} If Eve don't detect a photon, it means that during her measurement, the photon was projected in the $\kH$ state. So she will resend the state $\kH$ to Bob.
+		\item \bfs{Eve detect a single-photon:} It means that after her measurement, her photon is in the $\kV$ state. Then she will resend the state $\kV$ to Bob.
+		\end{itemize}
+		\item Any errors occurs in Alice and Bob maesurements.\\
+		Yes the secure key is using only a single-basis.
+	\end{enumerate}
+\item \hspace{2cm}\begin{tabular}{c} \includegraphics[scale=0.3]{cap3}\\
+\tbl{\emph{There is no eavesdopper and random bases are used}} \end{tabular}\\	
+
+The half of Alice's photons lead to a key bit. This fraction comes about by the fact that in half of cases, Alice and Bob choose different basis.
+\item  \hspace{2cm}\begin{tabular}{c} \includegraphics[scale=0.3]{cap4}\\
+	\tbl{\emph{Eve is eavesdopping and random bases are used}} \end{tabular}
+\begin{enumerate}
+	 \item When Eve intercepts particules, she act exactly like Bob. Let say that she do what Bob should do before him.She chooses to measure in either $H/V$ or $+45/-45$ basis, then she resends a new polarized photon to Bob according to the result of her measure.
+	\item \emph{How does an error occurs}? Let take the example that follows:
+	Alice sends a photon polarized in the state $\pqc$, this means that she choosed the $+45/-45$ basis. Assume Bob chooses the same basis as Alice, this is to say he chooses the $+45/-45$ basis to measure the polarization of the single-photon comming. When the eavesdropper Eve intervenes, there are two situations that can happen, one with no error, another with error:
+	\begin{itemize}[label=$\therefore$, font=\color{blue} ]
+		\item Assume Eve chooses the same basis as Alice, she will obtain the same state as the one sent by Alice (because of the right basis she choosed) and resend it to Bob, this one will then measure it and also obtain the same state as Alice. In this case, all is happening like there where no eavesdopper on the quantum line, \bfs{no error when Alice and Bob compare some bits}.
+		\item But if Eve chooses the basis $H/V$ , she resends a single-photon in one of the states $\kH$ and $\kV$ to Bob. Bob, who shoosed the same basis as Alice, by measuring the photon sent by Eve will obtain the state $\pqc$ only in $50\%$ of cases.We understand that once Bob obtains the state $\mqc$, he has a bit different from Alice. We then conclude that \bfs{there is an error on the quantum line}.\\
+		When an error occurs, we can say that Eve's basis is different from Alice and Bob basis.
+	\end{itemize}
+		\item No, not eveytime. Indeed, the error is due to the fact that the basis choosed by Eve makes Bob's result be randomed.When Bob measures the photon resent by Eve, we have an error only when he obtains a state different from the one Alice sent; But Bob can by chance (\textit{for Eve}) obtain the same result as Alice and no error will occur.
+	\item $25\%$ of the key bits lead to an error. This fraction comes about the fact that when Eve intercepts Alice's photon, she can imitate Bob only in $50\%$ of cases.
+	\item To determine if Eve has not compromised their key, they can compute the error rate on the quantum line.
+\end{enumerate}
+	\item Below we have the six challenges of our simulation:\\
+	
+		\hspace{-2.5cm}\begin{tabular}{ccc}
+		\includegraphics[scale=0.25]{13} & & \includegraphics[scale=0.25]{14}\\
+		\tbl{(a) \emph{ challenge 1 }} & & \tbl{(b) \emph{ challenge 2}}\\
+		\includegraphics[scale=0.25]{15}  && \includegraphics[scale=0.25]{16}\\
+		\tbl{(c) \emph{challenge 3}} && \tbl{(d) \emph{challenge 4}}\\
+		\includegraphics[scale=0.25]{17}  && \includegraphics[scale=0.25]{18}\\
+		\tbl{(e) \emph{challenge 5 }} && \tbl{(f) \emph{challenge 6}}\\
+	\end{tabular}\\ \\[8mm]
+	The challenge I found most difficult was the challenge number $6$, because of his relevance and because I lost it at my first try. In the challenge, they say that Alice and Bob are trying to compare the bit 1 they both obtained choosing the same $H/V$ basis in order to know if Eve is intercepting. Afer measuring, they find that they agree. The question is : \bfs{For this bit, what basis must Eve have used for her measurement ?}\\
+	We first failed because we considered that if Alice and Bob don't find any error, it means that Eve by chance used necessarily the same basis as them. But this is not completely correct because Eve can use the basis $-45/+45$ (different from Alice and Bob), this don't avoid that Bob by chance (for Eve) measure the same bit than Alice (bit $1$ in $H/V$ basis). Thus if Alice and Bob agree to the bit 1 they both obtain , \bfs{it is not possible to conclude from the information given}
+\end{enumerate}
+\section*{\textcolor{blue}{Conclusion}}
+To conclude, in what is above, we have simulated the BB84 protocol exploiting different situations.The first situation was that Eve was eavesdropping and fixed basis where used. We saw that when fixed bases are used, either no key bit is generated (Alice and Bob choose different bases) or the key bits generated are not secure (because of fixed bases). Then we saw the situation where there was no eavesdropper and random bases where used and we extracted that no error occurs and there is non-chared bits secure. Finally we was the situation where Eve was eavesdropping and random bases where used and we extracted  in this situation that when Alice and Bob note that the error rate is high, they discard the entire key and restart. Let ask ourselves how can we sumlate the same protocol without using polarized photons.
+\end{document}
